@@ -1,0 +1,14 @@
+privatecalc.
+
+Usage:
+  privatecalc gcd <a> <b>
+  privatecalc phi <x>
+  privatecalc [-v|--verbose] <e> <n>
+  privatecalc --help
+  privatecalc --version
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  -v --verbose  print calculation table
+
