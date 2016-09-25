@@ -1,0 +1,3 @@
+[submodule "docopt_c"]
+	path = docopt_c
+	url = git@github.com:gertoe/docopt.c.git
