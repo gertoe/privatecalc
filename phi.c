@@ -39,16 +39,16 @@ unsigned long long phi(unsigned long long n)
 
 // C program to demonstrate Basic Euclidean Algorithm
 // Function to return gcd of a and b
- unsigned long gcd(unsigned long a, unsigned long b)
- {
-   return (a == 0) ? b : gcd((b % a), a);
- }
+unsigned long gcd(unsigned long a, unsigned long b)
+{
+  return (a == 0) ? b : gcd((b % a), a);
+}
 
 // calculates gcd of a and b and increments global gcd count
 unsigned long count_gcd(unsigned long a, unsigned long b)
 {
   ++gcd_count;
-  if (a == 0)
+  if (!a) // (a == 0)
   {
     return (unsigned long)b;
   }
@@ -87,7 +87,7 @@ void up(unsigned long x[], long a[], long b[])
     b[i] = a[i + 1] - (b[i + 1] * x[i]);
   }
 
-    a[0] = b[1];
-    b[0] = a[1] - (b[1] * x[0]);
+  a[0] = b[1];
+  b[0] = a[1] - (b[1] * x[0]);
 }
 
