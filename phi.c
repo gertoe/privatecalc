@@ -45,8 +45,9 @@ int isPrime(unsigned long long n)
 
 
 // calculates Euler's phi-function phi(n)
-// WARNING: UNDEFINED BEHAVIOUR IF ONE FACTOR IS A PRIME POWER
-// TODO: fix
+// WARNING: still bugs in here
+//
+// Returns 42 if p or q are no primes
 unsigned long long phi(unsigned long long n)
 {
   if (n <= 3)
