@@ -1,21 +1,53 @@
-VERSION = 0.1
+# ------------  settings  ------------------------------------------------------
+VERSION = 0.2
 CC			= clang
-PY      = python3
-CFLAGS  = -Wall -O3  -Wpedantic -DVERSION=\"$(VERSION)\"
-LDFLAGS = -lm
+FLEX    = flex
+COW     = bison
 
+# DEBUG can be set to YES to include debugging info, or NO otherwise
+#DEBUG := YES
+
+# ------------  compiler flags  ------------------------------------------------
+RELEASE_CFLAGS       := -std=c11 -Wall -O2 -Wpedantic -DVERSION=\"$(VERSION)\"
+DEBUG_CFLAGS         := -std=c11 -Wall -O0 -Wpedantic -Wextra -pedantic -pg -ggdb $(DEFS) -DVERSION=\"$(VERSION)\"
+
+RELEASE_LDFLAGS      := -O2 -lrt -lm
+DEBUG_LDFLAGS        := -ggdb -O1 -lrt -lm
+
+# ------------  flags according to mode  ---------------------------------------
+ifeq (YES, ${DEBUG})
+	CFLAGS             := ${DEBUG_CFLAGS}
+	LDFLAGS            := ${DEBUG_LDFLAGS}
+else
+	CFLAGS             := ${RELEASE_CFLAGS}
+	LDFLAGS            := ${RELEASE_LDFLAGS}
+endif
+
+# ------------  make the targets  ----------------------------------------------
 OBJ = main.o phi.o
-SRC = $(OBJ:%.o=%.c) main.c docopt.c
+SRC = lex.yy.c cmd.tab.c
+PRI = $(OBJ:%.o=%.c)
 HDR = $(OBJ:%.o=%.h)
+CLI = lex.yy.c cmd.l cmd.y cmd.h cmd.tab.c cmd.tab.h
 
-BIN = private
-
-prog: $(OBJ)
-	$(CC) $(CFLAGS) -o $(BIN) $(OBJ) $(LDFLAGS)
+.PHONY:all clean
+all: docopt privatecalc argtest
 
 docopt:
-	$(PY) docopt_c/docopt_c.py -o docopt.c privatecalc.docopt
+	make -C ./docopt.c-1/
+	./docopt.c-1/docopt cmd.docopt
+	$(FLEX) cmd.l
+	$(COW) -d cmd.y
+
+privatecalc: $(SRC) $(PRI)
+	$(CC) $(LDFLAGS) $(SRC) $(PRI) -o privatecalc
+
+argtest:
+	$(CC) $(LDFLAGS) $(SRC) -O2 -DMAIN_EXAMPLE -o argtest
 
 clean:
-	rm -rfv $(BIN) $(OBJ) docopt.c
+	make clean -C ./docopt.c-1/
+	rm -rfv $(wildcard *.o *.out) $(CLI) docopt.c
 
+tidy: clean
+	rm -rfv privatecalc argtest

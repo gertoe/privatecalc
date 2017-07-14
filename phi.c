@@ -1,8 +1,52 @@
 #include "phi.h"
 
 unsigned long gcd_count = 0;
+unsigned long p;
+unsigned long q;
+
+
+int isPrime(unsigned long long n)
+{
+  // Corner cases
+  if (n <= 1)
+  {
+    return 0;
+  }
+  else if (n <= 3)
+  {
+    return 1;
+  }
+  else
+  {
+    // This is checked so that we can skip 
+    // middle five numbers in below loop
+    if (!(n%2) || !(n%3))
+    {
+      return 0;
+    }
+    else
+    {
+      for (unsigned long i = 5; i*i <= n; i += 6)
+      {
+        if (n % (unsigned long long)i == 0 || n % (i+2) == 0)
+        {
+          return 0;
+        }
+        else
+        {
+          continue;
+        }
+      }
+    }
+  }
+
+  return 1;
+}
+
 
 // calculates Euler's phi-function phi(n)
+// WARNING: UNDEFINED BEHAVIOUR IF ONE FACTOR IS A PRIME POWER
+// TODO: fix
 unsigned long long phi(unsigned long long n)
 {
   if (n <= 3)
@@ -10,30 +54,43 @@ unsigned long long phi(unsigned long long n)
   else
   {
     unsigned char count = 0;
-    unsigned long p = 0, q = 0;
+    p = 1;
+    q = n;
 
-    // only search up to upper bound (ceil(sqrt(n)) ~> assume "%" in O(1): phi(n) \in O(sqrt(n) + 1))
-    // in fact "%" \in O(n) due to prime factorization \in NPC ~> O(exp(sqrt(n) + 1)
+    // naive optimisation: seach up to sqrt(n)
     unsigned long limit = (unsigned long)ceil(sqrtl(n));
 
-    for (unsigned long i = 2; i < limit; ++i)
+    for (unsigned long i = 2; i <= limit; ++i)
     {
-      // get prime factors p and q. if p or q no prime (n is no dual-prime-product), then count > 1.
+
+      // determine prime factors p and q. if p or q are no primes (n is no prime-product), then count > 1.
       if ((n % (unsigned long long)i) == 0)
       {
-        p = i;
-        q = (unsigned long)((unsigned long long)n/(unsigned long long)i);
-        count += 1;
+        p = (unsigned long long)i;
+        q = (unsigned long) (((unsigned long long)n) / ((unsigned long long)i));
+
+        if (isPrime(p) && isPrime(q))
+        {
+          count += 1;
+          break;
+        }
       }
-      // optional (pseudo-code like)
       else
       {
         continue;
       }
     }
 
+    if (!isPrime(p) || !isPrime(q))
+    {
+      return 42;
+    }
+    else
+    {
+
     // return value of Euler's phi-function: n = p*q => phi(n) = (p-1)*(q-1)
-    return (count > 1) ? 0 : (unsigned long long)(((unsigned long long)(p-1))*(unsigned long long)(q-1));
+    return ((count > 1) || (!p && !q)) ? 0 : (unsigned long long)(((unsigned long long)(p-1))*(unsigned long long)(q-1));
+    }
   }
 }
 
@@ -48,7 +105,7 @@ unsigned long gcd(unsigned long a, unsigned long b)
 unsigned long count_gcd(unsigned long a, unsigned long b)
 {
   ++gcd_count;
-  if (!a) // (a == 0)
+  if (a == 0)
   {
     return (unsigned long)b;
   }
@@ -58,7 +115,7 @@ unsigned long count_gcd(unsigned long a, unsigned long b)
   }
 }
 
-// calculate and store basic-Euclidean-algorithm-values
+// calculates basic Euclidean algorithm
 void down(unsigned long e0, unsigned long phi0, unsigned long e[], unsigned long phi[], unsigned long x[] ,unsigned long R[])
 {
   e[0]   = e0;
@@ -75,7 +132,7 @@ void down(unsigned long e0, unsigned long phi0, unsigned long e[], unsigned long
   }
 }
 
-// calculate and store extended-Euclidean-algorithm-values
+// calculates extended Euclidean algorithm
 void up(unsigned long x[], long a[], long b[])
 {
   a[gcd_count - 1] = 0;

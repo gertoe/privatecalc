@@ -2,13 +2,13 @@ privatecalc.
 
 Usage:
   privatecalc gcd <a> <b>
-  privatecalc phi <x>
+  privatecalc phi [-v|--verbose] <x>
   privatecalc [-v|--verbose] <e> <n>
-  privatecalc --help
+  privatecalc [-h|--help]
   privatecalc --version
 
 Options:
   -h --help     Show this screen.
   --version     Show version.
-  -v --verbose  print calculation table
+  -v --verbose  Be verbose
 

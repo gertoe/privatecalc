@@ -6,7 +6,10 @@
 #include <math.h>
 
 extern unsigned long gcd_count;
+extern unsigned long p;
+extern unsigned long q;
 
+int isPrime(unsigned long long n);
 unsigned long gcd(unsigned long a, unsigned long b);
 unsigned long count_gcd(unsigned long a, unsigned long b);
 void down(unsigned long e0, unsigned long phi0, unsigned long e[], unsigned long phi[], unsigned long x[] ,unsigned long R[]);
