@@ -1,6 +1,3 @@
-[submodule "docopt_c"]
-	path = docopt_c
-	url = git@github.com:gertoe/docopt.c.git
 [submodule "docopt.c-1"]
 	path = docopt.c-1
 	url = git@github.com:gertoe/docopt.c-1.git
