@@ -19,6 +19,17 @@ Iterative calculation of extended Euclidean Algorithm (bottom-up):
 Private key: $d := a_0$
 
 $d \cdot e = 1~\text{mod} \varphi(n)$
+===
+## Requirements
+### privatecalc:
+---
+- Clang / GCC
+
+### argparser
+([rouming/docopt.c] by Roman Pen)
+---
+- flex
+- bison
 
 ```
 
@@ -35,3 +46,5 @@ Options:
   -v --verbose  Be verbose
 
 ```
+
+[rouming/docopt.c]:https://github.com/rouming/docopt.c
