@@ -1,8 +1,12 @@
-privatecalc.
+privatecalc - a small program for calculating values related to RSA
+              This program is designed for educational purposes.
+
+WARNING: This C implementation suffers from buffer overflows.
 
 Usage:
   privatecalc gcd <a> <b>
   privatecalc phi [-v|--verbose] <x>
+  privatecalc prime <p>
   privatecalc [-v|--verbose] <e> <n>
   privatecalc [-h|--help]
   privatecalc --version

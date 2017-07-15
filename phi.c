@@ -47,11 +47,12 @@ int isPrime(unsigned long long n)
 // calculates Euler's phi-function phi(n)
 // WARNING: still bugs in here
 //
-// Returns 42 if p or q are no primes
+// exits with error code 1 if p or q are no primes
 unsigned long long phi(unsigned long long n)
 {
+  // 1 is no prime, therefore (1 * 2) and (1 * 3) are no prime products
   if (n <= 3)
-    return (unsigned long long)0;
+    exit(1);
   else
   {
     unsigned char count = 0;
@@ -84,7 +85,7 @@ unsigned long long phi(unsigned long long n)
 
     if (!isPrime(p) || !isPrime(q))
     {
-      return 42;
+      exit(1);
     }
     else
     {
@@ -99,20 +100,33 @@ unsigned long long phi(unsigned long long n)
 // Function to return gcd of a and b
 unsigned long gcd(unsigned long a, unsigned long b)
 {
+  if (!a && !b)
+  {
+    // gcd(0,0) = 1
+    return 1;
+  }
   return (a == 0) ? b : gcd((b % a), a);
 }
 
 // calculates gcd of a and b and increments global gcd count
 unsigned long count_gcd(unsigned long a, unsigned long b)
 {
-  ++gcd_count;
-  if (a == 0)
+  if (!a && !b)
   {
-    return (unsigned long)b;
+    // gcd(0,0) = 1
+    return 1;
   }
   else
   {
-    return (unsigned long)count_gcd(b % a, a);
+    ++gcd_count;
+    if (a == 0)
+    {
+      return (unsigned long)b;
+    }
+    else
+    {
+      return (unsigned long)count_gcd(b % a, a);
+    }
   }
 }
 
@@ -134,6 +148,7 @@ void down(unsigned long e0, unsigned long phi0, unsigned long e[], unsigned long
 }
 
 // calculates extended Euclidean algorithm
+// WARNING: a, b mod phi(n); this function calculates a and b without modulus!
 void up(unsigned long x[], long a[], long b[])
 {
   a[gcd_count - 1] = 0;

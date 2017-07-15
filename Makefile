@@ -8,8 +8,8 @@ COW     = bison
 #DEBUG := YES
 
 # ------------  compiler flags  ------------------------------------------------
-RELEASE_CFLAGS       := -std=c11 -Wall -O2 -Wpedantic -DVERSION=\"$(VERSION)\"
-DEBUG_CFLAGS         := -std=c11 -Wall -O0 -Wpedantic -Wextra -pedantic -pg -ggdb $(DEFS) -DVERSION=\"$(VERSION)\"
+RELEASE_CFLAGS       := -Wall -O2 -Wpedantic -DBUILD=\"$(VERSION)\"
+DEBUG_CFLAGS         := -Wall -O0 -Wpedantic -Wextra -pedantic -pg -ggdb $(DEFS) -DVERSION=\"$(VERSION)d\"
 
 RELEASE_LDFLAGS      := -O2 -lrt -lm
 DEBUG_LDFLAGS        := -ggdb -O1 -lrt -lm
@@ -40,7 +40,7 @@ docopt:
 	$(COW) -d cmd.y
 
 privatecalc: $(SRC) $(PRI)
-	$(CC) $(LDFLAGS) $(SRC) $(PRI) -o privatecalc
+	$(CC) $(CFLAGS) $(LDFLAGS) $(SRC) $(PRI) -o privatecalc
 
 argtest:
 	$(CC) $(LDFLAGS) $(SRC) -O2 -DMAIN_EXAMPLE -o argtest
