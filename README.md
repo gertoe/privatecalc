@@ -3,8 +3,8 @@
 Naive implementation of Euclid's extended algorithm to calculate an RSA private-key a from a public-key $\langle e, n\rangle$
 
 Iterative calculation of basic Euclidean Algorithm (top-down):
-- $e_0 := e$,
-- $\varphi_0 := \varphi(n)$,
+- $$e_0 := e$$,
+- $$\varphi_0 := \varphi(n)$$,
 
 - $e_i = \varphi_{i-1}$,
 - $\varphi_i = R_{i-1}$,
@@ -19,6 +19,7 @@ Iterative calculation of extended Euclidean Algorithm (bottom-up):
 Private key: $d := a_0$
 
 $d \cdot e = 1~\text{mod} \varphi(n)$
+
 ===
 ## Requirements
 ### privatecalc:
