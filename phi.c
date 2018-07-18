@@ -4,6 +4,10 @@ unsigned long gcd_count = 0;
 unsigned long p;
 unsigned long q;
 
+inline int even(unsigned long long * x)
+{
+  return (1 & *x) ? 0 : 1;
+}
 
 int isPrime(unsigned long long n)
 {
@@ -18,9 +22,10 @@ int isPrime(unsigned long long n)
   }
   else
   {
-    // This is checked so that we can skip 
+    // This is checked so that we can skip
     // middle five numbers in below loop
-    if (!(n%2) || !(n%3))
+    //if (!(n%2) || !(n%3))
+    if ((even(&n)) || !(n%3))
     {
       return 0;
     }
