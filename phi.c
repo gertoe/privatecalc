@@ -4,9 +4,16 @@ unsigned long gcd_count = 0;
 unsigned long p;
 unsigned long q;
 
-inline int even(unsigned long long * x)
+inline int even(unsigned long long *x)
 {
-  return (1 & *x) ? 0 : 1;
+  // equivalent to: return (1 & *x) ? 0 : 1;
+  return !(1 & *x);
+}
+
+// calculates a mod b more efficiently on some architectures
+inline unsigned long long mod(unsigned long long *a, unsigned long long b)
+{
+  return *a - (b * (*a/b));
 }
 
 int isPrime(unsigned long long n)
@@ -25,15 +32,17 @@ int isPrime(unsigned long long n)
     // This is checked so that we can skip
     // middle five numbers in below loop
     //if (!(n%2) || !(n%3))
-    if ((even(&n)) || !(n%3))
+    //if ((even(&n)) || !(n%3))
+    if ((even(&n)) || !mod(&n, 3))
     {
       return 0;
     }
     else
     {
+      // use pseudo blocking (see above) to speed up calculation
       for (unsigned long i = 5; i*i <= n; i += 6)
       {
-        if (n % (unsigned long long)i == 0 || n % (i+2) == 0)
+        if (!mod(&n, i) || !mod(&n, i+2))
         {
           return 0;
         }
@@ -45,6 +54,7 @@ int isPrime(unsigned long long n)
     }
   }
 
+  // true if prime
   return 1;
 }
 
