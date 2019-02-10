@@ -112,22 +112,18 @@ int main(int argc, char *argv[])
         printf("\n");
       }
 
+      // fix result if a_0 is negative:
+      // d = a_0 mod phi(n)
+      unsigned long d = (a[0] < 0) ? (a[0] + phi0) : a[0];
+
       // print result
       if (cli.verbose || cli.v)
       {
+        printf("=> (%ld) * %lu + (%ld) * %lu = 1 mod %lu\n", a[0], e0, b[0], phi0, phi0);
         printf("=> d mod phi(n) = ");
       }
 
-      // fix result if a_0 is negative:
-      // d = a_0 mod phi(n)
-      if (a[0] < 0)
-      {
-        printf("%lu\n", a[0] + phi0);
-      }
-      else
-      {
-        printf("%lu\n", a[0]);
-      }
+      printf("%lu\n", d);
     }
   }
 

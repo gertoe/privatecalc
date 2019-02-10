@@ -16,6 +16,8 @@
 - $a_i = b_{i+1}$
 - $b_i = a_{i+1} - (b_{i+1} \cdot x_i)$
 
+Such that $a_i \cdot e + b_i \cdot \varphi_i \equiv 1~\mod \varphi(n)$.
+
 ##### Private key component:
 - $d := a_0\mod \varphi(n)$ with
 - $d \cdot e = 1~\mod \varphi(n)$

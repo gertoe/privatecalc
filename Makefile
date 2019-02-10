@@ -1,5 +1,5 @@
 # ------------  settings  ------------------------------------------------------
-VERSION = 0.2
+VERSION = 0.3
 CC			= clang
 FLEX    = flex
 COW     = bison
