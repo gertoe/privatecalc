@@ -36,7 +36,11 @@ int main(int argc, char *argv[])
       sscanf(cli.a, "%lu", &a);
       sscanf(cli.b, "%lu", &b);
 
-      printf("gcd(%lu,%lu) = %lu\n", a, b, gcd(a,b));
+      if(cli.v || cli.verbose)
+      {
+        printf("gcd(%lu,%lu) = ", a, b);
+      }
+      printf("%lu\n", gcd(a,b));
       return EXIT_SUCCESS;
     }
 

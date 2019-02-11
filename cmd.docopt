@@ -4,7 +4,7 @@ privatecalc - a small program for calculating values related to RSA
 WARNING: This C implementation suffers from buffer overflows.
 
 Usage:
-  privatecalc gcd <a> <b>
+  privatecalc gcd [-v|--verbose] <a> <b>
   privatecalc phi [-v|--verbose] <x>
   privatecalc prime <p>
   privatecalc [-v|--verbose] <e> <n>

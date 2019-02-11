@@ -8,10 +8,10 @@ COW     = bison
 #DEBUG := YES
 
 # ------------  compiler flags  ------------------------------------------------
-RELEASE_CFLAGS       := -Wall -O2 -Wpedantic -DBUILD=\"$(VERSION)\"
+RELEASE_CFLAGS       := -Wall -O3 -march=native -Wpedantic -DBUILD=\"$(VERSION)\"
 DEBUG_CFLAGS         := -Wall -O0 -Wpedantic -Wextra -pedantic -pg -ggdb $(DEFS) -DVERSION=\"$(VERSION)d\"
 
-RELEASE_LDFLAGS      := -O2 -lrt -lm
+RELEASE_LDFLAGS      := -O3 -lrt -lm
 DEBUG_LDFLAGS        := -ggdb -O1 -lrt -lm
 
 # ------------  flags according to mode  ---------------------------------------
